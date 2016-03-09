@@ -24,7 +24,7 @@ def getDeviceStatuses():
 def getDeviceStatus():
     global lightStates
     try:
-        return str(lightStates[int(request.args.get('deviceID'))])
+        return str(lightStates[int(request.args.get('deviceId'))])
     except:
         return "False"
 
@@ -33,7 +33,6 @@ def getDeviceStatus():
 def setDeviceStatus():
     global lightStates
     try:
-        print "ALOO"+request.args.get('state')+"ALOO"
         lightStates[int(request.args.get('deviceId'))] = ( request.args.get('state') == 'True')
         return "True"
     except:
