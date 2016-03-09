@@ -1,6 +1,9 @@
 from flask import Flask
 app = Flask(__name__)
 
+from flask import request
+
+
 lightStates = {}
 nLights = 5
 
@@ -21,7 +24,7 @@ def index():
 @app.route('/getStates')
 def index():
     global lightStates
-    return lightStates
+    return str(lightStates)
 
 @app.route('/setState')
 def index():
@@ -82,4 +85,5 @@ def login():
         print "ohho GET"
 
 if __name__ == '__main__':
+    app.debug = True
     app.run()
