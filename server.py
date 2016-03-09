@@ -1,11 +1,56 @@
 from flask import Flask
 app = Flask(__name__)
 
+lightStates = {}
+nLights = 5
+
+for i in range(nLights):
+    lightStates[i] = "OFF"
+    
+temp = 0.0
+nPeople = 0
+luminosity = 0.0
+
+
 
 @app.route('/')
 def index():
     return 'Index Page'
 
+
+@app.route('/getStates')
+def index():
+    global lightStates
+    return lightStates
+
+@app.route('/setState')
+def index():
+    global lightStates
+    lightStates[int(request.args.get('deviceId'))] = request.args.get('state')
+    return "OK"
+    
+    
+
+@app.route('/setTemp')
+def index():
+    global temp
+    temp = float(request.args.get('val'))
+    return "OK"
+
+
+@app.route('/setLuminosity')
+def index():
+    global luminosity
+    luminosity = float(request.args.get('val'))
+    return "OK"
+    
+
+@app.route('/setNPeople')
+def index():
+    global nPeople
+    nPeople = int(request.args.get('val'))
+    return "OK"
+    
 
 @app.route('/potato')
 def potato():
