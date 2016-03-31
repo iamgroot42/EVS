@@ -1,18 +1,15 @@
-from flask import Flask
+from flask import Flask,request
 app = Flask(__name__)
-
-from flask import request
 
 lightStates = {}
 nLights = 5
-
-for i in range(nLights):
-    lightStates[i] = False
-    
 temp = 0.0
 nPeople = 0
 luminosity = 0.0
 
+for i in range(nLights):
+    lightStates[i] = False
+    
 
 @app.route('/getDeviceStatuses')
 def getDeviceStatuses():
