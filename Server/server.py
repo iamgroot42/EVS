@@ -1,15 +1,18 @@
-from flask import Flask,request
+from flask import Flask
 app = Flask(__name__)
+
+from flask import request
 
 lightStates = {}
 nLights = 5
-temp = 0.0
-nPeople = 0
-luminosity = 0.0
 
 for i in range(nLights):
     lightStates[i] = False
     
+temp = 0.0
+nPeople = 0
+luminosity = 0.0
+
 
 @app.route('/getDeviceStatuses')
 def getDeviceStatuses():
@@ -87,6 +90,7 @@ def getPopulation():
 def apply_caching(response):
     response.headers["Access-Control-Allow-Origin"] = "*"
     return response
+
 # @app.route('/user/<username>')
 # def show_user_profile(username):
 #     # show the user profile for that user
