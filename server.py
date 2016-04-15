@@ -83,13 +83,19 @@ def getPopulation():
     global nPeople
     return str(nPeople)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3a18a58897b3d430d6a81e9ee35ee7709631c0f9
 @app.after_request
 def apply_caching(response):
     response.headers["Access-Control-Allow-Origin"] = "*"
     return response
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 3a18a58897b3d430d6a81e9ee35ee7709631c0f9
 # @app.route('/user/<username>')
 # def show_user_profile(username):
 #     # show the user profile for that user
