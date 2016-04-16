@@ -1,6 +1,15 @@
 import requests
 import nmap
+import RPi.GPIO as GPIO
+from pyfirmata import ArduinoMega
+from pyfirmata.util import Iterator
 
+board = ArduinoMega('/dev/ttyACM0')
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(26,GPIO.IN)
+iterator = Iterator(board)
+iterator.start()
+pinTemp = board.get_pin('a:0:i')
 
 backend = "http://192.168.1.4:5000"
 nm = nmap.PortScanner()
@@ -11,11 +20,22 @@ lumi = 42.0
 people = 0
 
 
+def sensors():
+	global pinTemp
+	global temp
+	voltage = pinTemp.read()
+	input_val = GPIO.input(26)
+	if voltage is not None:
+		temp = 5.0*100*voltage
+
+
 def update():
 	global devices
 	global temp
 	global lumi
 	global people
+	# Update sensor readings
+	sensors()
 	# Scan network to get connected routers
 	nm.scan('192.168.1.0/24', arguments = '-snP') 
 	people = len(nm.all_hosts()) - 2 # Don't include yourself,router
