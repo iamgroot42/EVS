@@ -18,6 +18,12 @@ devices = {}
 temp = 42.0
 lumi = 42.0
 people = 0
+opt_temp = 0.0
+
+
+def optimal_temp():
+	global opt_temp
+	opt_temp = 1.0
 
 
 def sensors():
@@ -34,6 +40,7 @@ def update():
 	global temp
 	global lumi
 	global people
+	global opt_temp
 	# Update sensor readings
 	sensors()
 	# Scan network to get connected routers
@@ -54,6 +61,10 @@ def update():
 	# Update population count
 	par = {'val':people}
 	r = requests.get(backend+"/setPopulation", params = par)
+	# Update optimal temperature
+	optimal_temp()
+	par = {'val':opt_temp}
+	r = requests.get(backend+"/getOptimalTemperature", params = par)
 
 
 def loop():

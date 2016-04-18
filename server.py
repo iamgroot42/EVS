@@ -4,12 +4,29 @@ app = Flask(__name__)
 lightStates = {}
 nLights = 5
 temp = 0.0
+opt_temp = 0.0
 nPeople = 0
 luminosity = 0.0
 
 for i in range(nLights):
     lightStates[i] = False
     
+
+@app.route('/getOptimalTemperature')
+def getOptimalTemperature():
+    global opt_temp
+    return str(opt_temp)
+
+  
+@app.route('/setOptimalTemperature')
+def setOptimalTemperature():
+    global opt_temp
+    try:
+        opt_temp = float(request.args.get('val'))
+        return "True"
+    except:
+        return "False"
+
 
 @app.route('/getDeviceStatuses')
 def getDeviceStatuses():
@@ -23,7 +40,7 @@ def getDeviceStatus():
     try:
         return str(lightStates[int(request.args.get('deviceId'))])
     except:
-        return "False"
+        return "Potato"
 
 
 @app.route('/setDeviceStatus')
@@ -83,19 +100,13 @@ def getPopulation():
     global nPeople
     return str(nPeople)
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 3a18a58897b3d430d6a81e9ee35ee7709631c0f9
 @app.after_request
 def apply_caching(response):
     response.headers["Access-Control-Allow-Origin"] = "*"
     return response
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 3a18a58897b3d430d6a81e9ee35ee7709631c0f9
 # @app.route('/user/<username>')
 # def show_user_profile(username):
 #     # show the user profile for that user
