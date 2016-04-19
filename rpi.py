@@ -64,7 +64,7 @@ def update():
 	# Update optimal temperature
 	optimal_temp()
 	par = {'val':opt_temp}
-	r = requests.get(backend+"/getOptimalTemperature", params = par)
+	r = requests.get(backend+"/setOptimalTemperature", params = par)
 
 
 def loop():
