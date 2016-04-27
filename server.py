@@ -14,18 +14,16 @@ db = client.test
 
 def update():
     loc = [28.547291, 77.273201]
-    post = {"luminosity":luminosity,
-    "numberoflights":nLights,
-    "temperature":temp,
-    "optimaltemperature":opt_temp,
-    "numberofpeople":nPeople,
-    "lightStates":lightStates,
-    "loc":loc}
-    print "adding"
-    print db.test.insert(post)
-    print "added"
-    # print x
-
+    post = {"luminosity" : luminosity,
+    "numberoflights" : nLights,
+    "temperature" : temp,
+    "optimaltemperature" : opt_temp,
+    "numberofpeople" : nPeople,
+    "lightStates" : str(lightStates),
+    "loc" : loc
+    }
+    db.test.insert(post)
+    
 for i in range(nLights):
     lightStates[i] = False
     
@@ -41,11 +39,9 @@ def setOptimalTemperature():
     global opt_temp
     try:
         opt_temp = float(request.args.get('val'))
-        print "here"
         update()
         return "True"
     except:
-        print "chakka1"
         return "False"
 
 
@@ -72,7 +68,6 @@ def setDeviceStatus():
         update()
         return "True"
     except:
-        print "chakka2"
         return "False"
     
     
@@ -81,11 +76,9 @@ def setTemperature():
     global temp
     try:
         temp = float(request.args.get('val'))
-        print "here"
         update()
         return "True"
     except:
-        print "chakka3"
         return "False"
 
 
@@ -103,7 +96,6 @@ def setLuminosity():
         update()
         return "True"
     except:
-        print "chakka4"
         return "False"
     
 
@@ -121,7 +113,6 @@ def setPopulation():
         update()
         return "True"
     except:
-        print "chakka5"
         return "False"
 
 
