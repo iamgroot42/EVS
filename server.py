@@ -1,5 +1,5 @@
 from flask import Flask,request
-import MySQLdb
+import pymongo,datetime
 app = Flask(__name__)
 
 lightStates = {}
@@ -9,30 +9,22 @@ opt_temp = 0.0
 nPeople = 0
 luminosity = 0.0
 
-db = MySQLdb.connect(host = "localhost",user = "root",passwd = "123456")
-cur = db.cursor()
-stmt = "SHOW DATABASES LIKE 'evsProject';"
-cur.execute(stmt)
-res = cur.fetchone()
-if res == None:
-	stmt = "CREATE DATABASE evsProject;"
-	cur.execute(stmt)
-	db.commit()
-stmt = "USE evsProject;"
-cur.execute(stmt)
-db.commit()
-stmt = "SHOW TABLES LIKE 'data';"
-cur.execute(stmt)
-res = cur.fetchone()
-if res == None:
-	stmt = "CREATE TABLE data (numPeople integer, optTemp float, temp float, luminosity float, allDevices varchar(255));"
-	cur.execute(stmt)
-	db.commit()
+client = pymongo.MongoClient()
+db = client.test
 
-def updatedb():
-	cur.execute("INSERT INTO data values( %s, %s, %s, %s, %s)",(nPeople , opt_temp , temp , luminosity , NULL))
-	db.commit()
-	print cur.fetchall()
+def update():
+    loc = [28.547291, 77.273201]
+    post = {"luminosity":luminosity,
+    "numberoflights":nLights,
+    "temperature":temp,
+    "optimaltemperature":opt_temp,
+    "numberofpeople":nPeople,
+    "lightStates":lightStates,
+    "loc":loc}
+    print "adding"
+    print db.test.insert(post)
+    print "added"
+    # print x
 
 for i in range(nLights):
     lightStates[i] = False
@@ -41,7 +33,6 @@ for i in range(nLights):
 @app.route('/getOptimalTemperature')
 def getOptimalTemperature():
     global opt_temp
-    updatedb()
     return str(opt_temp)
 
   
@@ -50,8 +41,11 @@ def setOptimalTemperature():
     global opt_temp
     try:
         opt_temp = float(request.args.get('val'))
+        print "here"
+        update()
         return "True"
     except:
+        print "chakka1"
         return "False"
 
 
@@ -75,9 +69,10 @@ def setDeviceStatus():
     global lightStates
     try:
         lightStates[int(request.args.get('deviceId'))] = ( request.args.get('state') == 'True')
-        updatedb()
+        update()
         return "True"
     except:
+        print "chakka2"
         return "False"
     
     
@@ -86,9 +81,11 @@ def setTemperature():
     global temp
     try:
         temp = float(request.args.get('val'))
-        updatedb()
+        print "here"
+        update()
         return "True"
     except:
+        print "chakka3"
         return "False"
 
 
@@ -103,9 +100,10 @@ def setLuminosity():
     global luminosity
     try:
         luminosity = float(request.args.get('val'))
-        updatedb()
+        update()
         return "True"
     except:
+        print "chakka4"
         return "False"
     
 
@@ -120,9 +118,10 @@ def setPopulation():
     global nPeople
     try:
         nPeople = int(request.args.get('val'))
-        updatedb()
+        update()
         return "True"
     except:
+        print "chakka5"
         return "False"
 
 
