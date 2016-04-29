@@ -1,28 +1,29 @@
 from flask import Flask,request
-import pymongo,datetime
+import json
+#import pymongo,datetime
 app = Flask(__name__)
 
 lightStates = {}
-nLights = 5
+nLights = 15
 temp = 0.0
 opt_temp = 0.0
 nPeople = 0
 luminosity = 0.0
 
-client = pymongo.MongoClient()
-db = client.test
+# client = pymongo.MongoClient()
+# db = client.test
 
-def update():
-    loc = [28.547291, 77.273201]
-    post = {"luminosity" : luminosity,
-    "numberoflights" : nLights,
-    "temperature" : temp,
-    "optimaltemperature" : opt_temp,
-    "numberofpeople" : nPeople,
-    "lightStates" : str(lightStates),
-    "loc" : loc
-    }
-    db.test.insert(post)
+# def #update():
+#     loc = [28.547291, 77.273201]
+#     post = {"luminosity" : luminosity,
+#     "numberoflights" : nLights,
+#     "temperature" : temp,
+#     "optimaltemperature" : opt_temp,
+#     "numberofpeople" : nPeople,
+#     "lightStates" : str(lightStates),
+#     "loc" : loc
+#     }
+#     db.test.insert(post)
     
 for i in range(nLights):
     lightStates[i] = False
@@ -39,7 +40,7 @@ def setOptimalTemperature():
     global opt_temp
     try:
         opt_temp = float(request.args.get('val'))
-        update()
+        ##update()
         return "True"
     except:
         return "False"
@@ -48,7 +49,8 @@ def setOptimalTemperature():
 @app.route('/getDeviceStatuses')
 def getDeviceStatuses():
     global lightStates
-    return str(lightStates)
+    print json.dumps(lightStates)
+    return json.dumps(lightStates)
 
 
 @app.route('/getDeviceStatus')
@@ -64,8 +66,8 @@ def getDeviceStatus():
 def setDeviceStatus():
     global lightStates
     try:
-        lightStates[int(request.args.get('deviceId'))] = ( request.args.get('state') == 'True')
-        update()
+        lightStates[int(request.args.get('deviceId'))] = ( request.args.get('state') == '1')
+        ##update()
         return "True"
     except:
         return "False"
@@ -76,7 +78,7 @@ def setTemperature():
     global temp
     try:
         temp = float(request.args.get('val'))
-        update()
+        #update()
         return "True"
     except:
         return "False"
@@ -93,7 +95,7 @@ def setLuminosity():
     global luminosity
     try:
         luminosity = float(request.args.get('val'))
-        update()
+        #update()
         return "True"
     except:
         return "False"
@@ -110,7 +112,7 @@ def setPopulation():
     global nPeople
     try:
         nPeople = int(request.args.get('val'))
-        update()
+        #update()
         return "True"
     except:
         return "False"
