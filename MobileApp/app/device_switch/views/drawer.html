@@ -1,0 +1,23 @@
+
+  <super-navbar>
+    <super-navbar-title>
+      Rooms
+    </super-navbar-title>
+  </super-navbar>
+
+  <div class="padding">
+
+
+    <ul class="list">
+      <li class="item" onclick="supersonic.ui.drawers.close();supersonic.ui.layers.push(new supersonic.ui.View('device_switch#RoomA'))">Room A</li>
+      <li class="item" onclick="supersonic.ui.drawers.close();supersonic.ui.layers.push(new supersonic.ui.View('device_switch#RoomB'))">Room B</li>
+      <li class="item" onclick="supersonic.ui.drawers.close();supersonic.ui.layers.push(new supersonic.ui.View('device_switch#RoomC'))">Room C</li>
+    </ul>
+
+    
+    <br>
+    <button class="button button-positive button-block" ng-click="supersonic.ui.drawers.close()">
+      Close this menu
+    </button>
+
+  </div>

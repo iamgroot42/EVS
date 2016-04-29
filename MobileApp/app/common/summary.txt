@@ -1,0 +1,4 @@
+App -> Temperature Get/Set DONE, Devices Get/(Set DONE) 
+Server -> Temperature / Devices Get/Set 
+Frontend -> Statistics
+Hardware -> Sense and possibly show

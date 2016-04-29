@@ -1,0 +1,31 @@
+<div ng-controller="IndexController">
+
+  <super-navbar>
+    <super-navbar-title>
+      AC Control
+    </super-navbar-title>
+  </super-navbar>
+
+  <div class="item item-divider">
+  	Control AC temperature
+  </div>
+  <br/>
+  <br/>
+  <br/>
+  <div class="padding" style="text-align:center;">
+  	<div id="temperature_val">
+  		0.0
+  	</div>
+    <br/>
+    <br/>
+    <div id="optimal_temperature_val" style="color:green;font-size:20px;">
+      Optimal Temperature: 0.0
+    </div>
+    <div>
+    <button class="button button-positive button-block" id="btn-ac-inc" style="background-color:red;color:white"> Increase Temperature </button>
+    <button class="button button-positive button-block" id="btn-ac-dec" style="background-color:blue;color:white"> Decrease Temperature </button>
+    <button class="button button-positive button-block" id="btn-ac-sync" style="background-color:green;color:white"> Sync Temperature </button>
+    <div>
+  </div>
+
+</div>
